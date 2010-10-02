@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>HTMLe 2.1 READ ME</title>
+<style type="text/css">
+body { font-family: arial; }
+.style1 {color: #FF0000}
+.style2 {color: #006600}
+.style3 {color: #0000FF}
+.style4 {color: #333333}
+.style5 {color: #990000}
+</style>
+</head>
+
+<body>
+<p><strong>What is HTMLe</strong><br />
+  You&rsquo;ve just built a WordPress website for your client, or provided them  with a custom CMS and then they say&hellip; &ldquo;we want to add a feed on this  page to cnn.com, and a feed on this page to yahoo.com.&rdquo;&nbsp; Or they say,  &ldquo;wow, this is great, but can we add our twitter feed to this page only&rdquo;  or &ldquo;can we hook this up to our store database and show products for  this category on this page, and a different category on this page?&rdquo;&nbsp;  Unfortunately, clients do not seem to realize that these are database  driven sites, meaning the content is simply being pulled out of the  database and thrown into a single, templated page.</p>
+<p>It was from this lack of understanding that HTMLe, the plugin engine  was built.&nbsp; Similar to Smarty&rsquo;s plugin engine, HTMLe allows you to  build a single plugin which is called by a &ldquo;smart tag&rdquo; and accepts  unlimited attributes.&nbsp; But HTMLe takes it one step further as it allows  you to call sub-functions individually, as well as use a class instead  of a function&hellip; giving you even more control over your plugin and  allowing for even greater code reusability.</p>
+<p>For example, by default the RSS READER plugin is included.&nbsp; To add  an RSS feed to a page you would simply add { rssreader  url=&rdquo;http://www.mikestowe.com/feed/&rdquo; posts=&rdquo;5&Prime; words=&rdquo;25&Prime; endwith=&rdquo;&hellip;&rdquo;  }&nbsp; This would then display 5 posts (with upto 25 words) from the  Mikestowe.com feed.&nbsp; Of course you can take even greater advantage of  this &ldquo;HTMLe tag&rdquo; by adding the skip attribute (skips the first # of  words) and the style attribute (let&rsquo;s you completely style how the  individual posts are displayed).</p>
+<p><strong><br />
+  Installing HTMLe</strong><br />
+  HTMLe can be installed as a WordPress plugin or standalone on any server running PHP 5.</p>
+<p><img title="wordpress_icon" src="http://www.mikestowe.com/wp-content/uploads/2010/05/wordpress_icon.png" alt="WORDPRESS" width="50" align="absmiddle" height="50" /> To install as a <strong>WordPress</strong> plugin:</p>
+<ol>
+  <li>Install the HTMLe folder in the wp-content/plugins/ folder</li>
+  <li>CHMOD the HTMLe/plugins folder and its contents to 777 to enable  plugin creation and editing (this can be skipped for security purposes)</li>
+  <li>Activate the plugin through the WordPress admin panel (under plugins)</li>
+</ol>
+<p><img title="php-icon" src="http://www.mikestowe.com/wp-content/uploads/2010/05/php-icon.gif" alt="PHP" width="50" align="absmiddle" height="50" />To install as a <strong>stand alone</strong> plugin for a custom CMS/ DDW:</p>
+<ol>
+  <li>Install the HTMLe folder somewhere in your site&rsquo;s directory</li>
+  <li>If you do not have autoload setup for this location, include the HTMLe.php file (you only need to do this once)</li>
+  <li>Wrap your output code in the HTMLe function or class
+    <ul>
+        <li> <span class="style1">&lt;?php</span>&nbsp;<span class="style2">HTMLe_process</span>(<span class="style3">$output</span>);&nbsp;<span class="style1">?&gt;</span> <em><strong>- OR -</strong></em></li>
+      <li> <span class="style1">&lt;?php</span>&nbsp;<span class="style3">$HTMLe</span>&nbsp;=&nbsp;<span class="style4">new</span>&nbsp;<span class="style2">HTMLe</span>;&nbsp;<span class="style2"><span class="style3">$HTMLe</span><span class="style4">-&gt;</span>parse</span>(<span class="style3">$output</span>);&nbsp;<span class="style1">?&gt;</span></li>
+    </ul>
+  </li>
+</ol>
+<p>&nbsp;</p>
+<p><strong>Coding Restrictions<br />
+</strong></p>
+<ol>
+  <li>HTMLe tags may not contain a space between the opening bracket and the HTMLe tag (for example, { rssreader} will not work</li>
+  <li>You may only use quotations when referring to attributes, and they  may not be used outside of defining an attribute.&nbsp; It is recommended to  use apostrophes (&lsquo;) inside of an attribute when needed.&nbsp; For example, {  rssreader style=&rdquo;&lt;a href=&rdquo;&quot;&gt;&rdquo;} will not work.&nbsp; However you may  also use HTMLe smart tags to do this, so in the case of =&rdquo; you can use  (( and in the case of &rdquo; you can use )) or { rssreader style=&rdquo;&lt;a  href((%link%))&gt;&rdquo;}</li>
+  <li>You may only use attributes ({tag attribute=&quot;value&quot;}) OR textarea style HTMLe tags ({tag}{/tag}). If a tag contains an ending tag ({/tag}), it will be assumed to be a textarea style tag and all attributes will be ignored, with only $params['_inner'] being returned (regardless if there is any text between the start and end tag or not). I am hoping to resolve this is a future release. </li>
+</ol>
+<p>&nbsp;</p>
+<p><strong>Bugs</strong></p>
+<ul>
+  <li> No known bugs. If you find one, please let me know (<a href="http://www.mikestowe.com/HTMLe">http://www.mikestowe.com/HTMLe</a>) </li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Usage</strong><br />
+  HTMLe is now being released under the <a href="http://www.gnu.org/licenses/gpl-2.0.html" target="_blank">GPL version 2 license</a>.  If you do find HTMLe to be useful, or have any suggestions or ideas, please let me know<strong> <img title=":)" src="http://www.mikestowe.com/wp-includes/images/smilies/icon_smile.gif" alt="SMILE" width="15" height="15" /></strong><br />
+</p>
+<p><strong><br />
+  Get Plugins/ <span class="style5">Stay Updated</span> </strong><br /> 
+Visit <a href="http://www.mikestowe.com/HTMLe">http://www.mikestowe.com/HTMLe</a> to subscribe to the HTMLe Updates Newsletter and to see new plugins for the HTMLe engine.  Please feel free to contribute your own plugins by contacting me (information on MikeStowe.com as well).</p>
+<p></p>
+</body>
+</html>

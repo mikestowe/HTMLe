@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>HTMLe 2.1 Building a Plugin</title>
+<style type="text/css">
+body { font-family: arial; }
+.style2 {color: #006600}
+.style5 {color: #0000FF}
+.style7 {color: #666666}
+</style>
+</head>
+
+<body>
+<p><strong>Building a Plugin </strong><br />
+To build a plugin, simply create a file with the short tag name that you would like to use.  Say for example our plugin will be called using {demo}, we would name the plugin demo.php and save it in the HTMLe/plugins/ folder.</p>
+<p>We then need to name the function identically to the page name, only add &quot;HTMLe_&quot; to the front, and of course remove the &quot;.php&quot;  A correct function for demo would look like:</p>
+<p><span class="style2">function</span> HTMLe_demo(<span class="style5">$params</span>) { } <span class="style7">// note: $params will contain an array sent to the function by HTMLe, see below for more on this</span></p>
+<p>You may have multiple functions in your plugin, however HTMLe_demo will be the function called by the template engine.</p>
+<p>Once you have completed the requested operations, simply <strong>return</strong> the output that you would like to replace the {demo} tag.  Using &quot;echo&quot; or &quot;print&quot; may cause the data to be returned incorrectly on the site.</p>
+<p>To use attributes, simply add them to your tags as you would in HTML.  Let's say we want to create a color attribute, our code would then look like: {demo color=&quot;white&quot;}.  To access the value for this attribute in your function, simply utilize $params['color']. You may also use textarea style tags WITHOUT attributes, for example {demo}{/demo}. To retrieve the block of text between the {demo} tags, you would then use $params['_inner']. </p>
+<p>Lastly, you may have multiple HTMLe tags throughout the page, including identical HTMLe tags. The tags may also work differently (as long as your logic allows it), for example the PHP plugin's highlight function will check for a 'text' attribute, a 'file' attribute, OR the '_inner' attribute and return the code highlighted text based on what it finds.</p>
+<p>For more information on building a plugin and plugin type specific instructions/ capabilities, please see the sample function based plugin: hello.php, and the sample class based plugin: sampleclass.php.</p>
+<p><strong>Note:</strong> plugins are included automatically once placed in the plugins folder AND called by the corresponding HTMLe tag. <br />
+</p>
+<p>&nbsp; </p>
+</body>
+</html>

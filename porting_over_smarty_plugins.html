@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>HTMLe 2.1 Porting Over Smarty Plugins</title>
+<style type="text/css">
+body { font-family: arial; }
+.style9 {
+	color: #2A6A96;
+	font-weight: bold;
+}
+.style10 {color: #666666}
+.style11 {color: #006600}
+</style>
+</head>
+
+<body>
+<p><strong>Porting Over Smarty Templates </strong><br /> 
+To port over a Smarty plugin for use in the HTMLe system, follow these simple steps:
+  </p>
+<ol>
+  <li>Change the name of the primary function from &quot;smarty_function_...&quot; to &quot;HTMLe_...&quot; (for example, <span class="style10">smarty_function_demo</span> would become <span class="style11">HTMLe_demo</span>) </li>
+  <li>Remove the &quot;&amp;$smarty&quot; parameter from the function, leaving $params intact. (so your function would look like: <span class="style11">HTMLe_demo($params) { ... } </span>) </li>
+  <li>Rename the file, removing the &quot;function.&quot; from in front of the plugin name (so <span class="style10">function.demo.php</span> would become just <span class="style11">demo.php</span>) </li>
+  <li>Test the plugin to make sure everything works and enjoy! <strong><img title=":)" src="http://www.mikestowe.com/wp-includes/images/smilies/icon_smile.gif" alt="SMILE" width="15" height="15" /></strong></li>
+</ol>
+<p>&nbsp;</p>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="8%" valign="top"><img title="wordpress_icon" src="http://www.mikestowe.com/wp-content/uploads/2010/05/wordpress_icon.png" alt="WORDPRESS" width="50" align="absmiddle" height="50" /></td>
+    <td width="92%"><p><span class="style9">Optional:</span> for use with the WordPress HTMLe admin panel, you may also modify the Smarty Plugin comments located at the top of the page to include (each on its own line):</p>
+      <ul>
+        <li>File: name of the file including &quot;.php&quot;</li>
+        <li>Type: whether the plugin is a function or a class</li>
+        <li>Name: the name of the plugin</li>
+        <li>Purpose: what the plugin does</li>
+        <li>Author: who developed the plugin</li>
+        <li>Example: how to use the plugin (include ALL optional attributes)</li>
+        <li>Required: required attributes in order for the plugin to work</li>
+        <li>Special: any special parameters or tags the plugin takes </li>
+    </ul></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p>&nbsp; </p>
+</body>
+</html>
