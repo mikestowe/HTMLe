@@ -2,8 +2,8 @@
 /*
 Plugin Name: HTMLe
 Plugin URI: http://www.mikestowe.com/HTMLe
-Description: HTMLe (enhanced) allows you to quickly install custom plugins for your WordPress blog, and then utilize them through the admin panel by adding a simple tag (similar to Smarty).  Perfect for design teams who do not want to create WordPress hacks every time they want to do something cool.  To get started, simply upload your HTMLe plugins into the wp-content/plugins/HTMLe/plugins/ folder and then add the correlating HTMLe tag to your post... try out {hello} for an example.  <strong><em>now includes RSS Reader and support for child functions/ classes.</em></strong>
-Version: 2.2 - October 1, 2010
+Description: HTMLe allows you to build and call Smarty style plugins through the use of HTMLe tags (identical to Smarty tags).  By accepting unlimited parameters, you can provide your client with a rich PHP plugin that can be customized quickly and easily, without knowledge of HTML or PHP.  <br /><br />Default plugins include {iframe} which accepts any attribute the HTML tag accepts, {php} which allows you to call misc. PHP functions, get PHP variables, or highlight PHP code, {rssreader} which allows you to display RSS feeds, and then a sample hello world and sample class plugin.  <br /><br />HTMLe also contains a built in editor to allow you to quickly and easily create, edit, and delete plugins from the WP-Admin, or simply change the permissions to disable this on a plugin.  HTMLe was designed for developers to provide their users with a simple way to include advanced code again and again, or just as a way to simply their everyday blogging activities (view http://www.mikestowe.com to see examples of the HTMLe plugins at work).  HTMLe plugins are stored in wp-content/plugins/HTMLe/plugins/.    <br /><br /><strong style="color: #990000;"><em>Before Upgrading Backup Any Plugins.  WordPress will DELETE ALL Custom Plugins when Upgrading HTMLe.</em></strong>
+Version: 2.2.1 - October 1, 2010
 Author: Michael Stowe
 Author URI: http://www.mikestowe.com
 License: GPL-2
@@ -137,7 +137,7 @@ HTMLETEMPLATE;
 			if(substr($file,0,1) != '.') { 
 				$title = '<strong>'.strtoupper(substr($file,0,-4)).'</strong>:';
 				$example = file_get_contents(dirname(__FILE__).'/plugins/'.$file);
-				$parts = explode("\r",$example);
+				$parts = explode("\n",$example);
 				$i = 1;
 				$examplecode = $purpose = $required = $special = '';
 				foreach($parts as $part) {
