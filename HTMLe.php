@@ -236,7 +236,7 @@ function __construct() {
 			}
 			
 			
-			if(preg_match_all('/{'.$tag.'}[^{]+{\/'.$tag.'}[^.]*/i',$HTMLIN,$innermatches)) {
+			if(preg_match_all('/{'.$tag.'}[^{]+{\/'.$tag.'}/i',$HTMLIN,$innermatches)) {
 				for($i=0; $i < count($innermatches[0]); $i++) {
 					unset($params);
 					$inm_tmp = explode('}',$innermatches[0][$i]);
