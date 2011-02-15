@@ -1,7 +1,7 @@
 <?php
 /*
  * HTMLe plugin
- * ————————————————————-
+ * ----------------------
  * File:     php.php
  * Type:     function/ child functions
  * Name:     php
@@ -10,16 +10,17 @@
  * Example: Execute Code: {php code="echo 'hello world';"} -OR- {php}echo 'hellow world';{/php} Execute File: {php file="myfile.inc"} $_GET: {php:get key="page"} $_SESSION: {php:session key="page"} Variable: {php:variable key="page"} Constant: {php:constant key="page"} Highlight PHP Code: {php:highlight text="<?php"} OR {php:highlight file="myfile.php"}
  * Required:
  * Special: Child functions: highlight, variable, get, post, request, cookie, session
- * ————————————————————-
+ * ----------------------
  * Note: the above information should be included in all plugins and is used to teach 
  * the user about your plugin.  Use the required field for any required attributes, and
  * the special field for any special tags your plugin accepts.
  */
 
 function HTMLe_php_phpcleanfunction($input) {
-	$find = array('php<br />',';<br />');
-	$replace = array('php',';');
-	return str_replace($find,$replace,$input);
+	//$find = array('php<br />',';<br />');
+	//$replace = array('php',';');
+	//return str_replace($find,$replace,$input);
+	return preg_replace('/<br[^>|\/]\/>|<p[^>]*>|<\/p>/i','',$input);
 }
 
 
@@ -34,7 +35,9 @@ function HTMLe_php($params) {
 	} elseif (isset($params['code'])) {
 		return eval($params['code']);
 	} elseif (isset($params['_inner'])) {
-		return eval(HTMLe_php_phpcleanfunction($params['_inner']));
+		$params['_inner'] = preg_replace('/<br[^>|\/]\/>|<p[^>]*>|<\/p>/i','',$params['_inner']);
+		$params['_inner'] = str_ireplace(array('print','echo'),'$php_return_echo = ',$params['_inner']);
+		return eval('$php_return_echo = \'\';'.HTMLe_php_phpcleanfunction($params['_inner']).' return $php_return_echo;');
 	}
 	*/
 }
