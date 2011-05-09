@@ -3,7 +3,7 @@
 Plugin Name: HTMLe
 Plugin URI: http://www.mikestowe.com/HTMLe
 Description: HTMLe allows you to build and call Smarty style plugins through the use of HTMLe tags (identical to Smarty tags).  By accepting unlimited parameters, you can provide your client with a rich PHP plugin that can be customized quickly and easily, without knowledge of HTML or PHP.  <br /><br />Default plugins include {iframe} which accepts any attribute the HTML tag accepts, {php} which allows you to call misc. PHP functions, get PHP variables, or highlight PHP code, {rssreader} which allows you to display RSS feeds, and then a sample hello world and sample class plugin.  <br /><br />HTMLe also contains a built in editor to allow you to quickly and easily create, edit, and delete plugins from the WP-Admin, or simply change the permissions to disable this on a plugin.  HTMLe was designed for developers to provide their users with a simple way to include advanced code again and again, or just as a way to simply their everyday blogging activities (view http://www.mikestowe.com to see examples of the HTMLe plugins at work).  HTMLe plugins are stored in wp-content/plugins/HTMLe/plugins/.    <br /><br /><strong style="color: #990000;"><em>Before Upgrading Backup Any Plugins.  WordPress will DELETE ALL Custom Plugins when Upgrading HTMLe.</em></strong>
-Version: 2.2.2 - February 15, 2011
+Version: 2.2.3 - May 9, 2011
 Author: Michael Stowe
 Author URI: http://www.mikestowe.com
 License: GPL-2
@@ -211,8 +211,8 @@ function __construct() {
 ############################################ FIX QUOTES (WordPress and CMS)
 
 
-	function cleanquote($input,$tag='') {
-		return str_ireplace(array('{'.$tag,'&#8221;','&#8243;','&quot;','&#8216;','&#8217;'),array('','"','"','\'','\'','\''),$input);
+	function cleanquote($input) {
+		return str_ireplace(array('&#8221;','&#8243;','&quot;','&#8216;','&#8217;'),array('"','"','"','\'','\''),$input);
 	}
 
 	
@@ -222,7 +222,7 @@ function __construct() {
 	function parse($HTMLIN) {
 		foreach($this->tags as $tag) {
 
-			if(preg_match_all('/({'.$tag.':[^}]+}(.+){\/'.$tag.':[^}]+)/i',$HTMLIN,$innersubmatches)) {
+			if(preg_match_all('/{'.$tag.':[^}]+}[^{]*{\/'.$tag.':[^}]+/i',$HTMLIN,$innersubmatches)) {
 				for($i=0; $i < count($innersubmatches[0]); $i++) {
 					unset($params);
 					$inm_tmp = explode('}',$innersubmatches[0][$i]);
@@ -230,19 +230,19 @@ function __construct() {
 					$tag = substr($tag_parts[0],1);
 					$call_function = $tag_parts[1];
 					$inm_tmp = explode('{',$inm_tmp[1]);
-					$params['_inner'] = $this->cleanquote($innersubmatches[2][$i],$tag.':'.$call_function);
+					$params['_inner'] = $this->cleanquote($inm_tmp[0]);
 					$HTMLIN = str_ireplace($innersubmatches[0][$i].'}',$this->build($tag,$call_function,$params),$HTMLIN);
 				}
 			}
 			
 			
-			if(preg_match_all('/({'.$tag.'}(.+){\/'.$tag.'})/i',$HTMLIN,$innermatches)) {
+			if(preg_match_all('/{'.$tag.'}[^{]*{\/'.$tag.'}/i',$HTMLIN,$innermatches)) {
 				for($i=0; $i < count($innermatches[0]); $i++) {
 					unset($params);
 					$inm_tmp = explode('}',$innermatches[0][$i]);
 					$tag = $call_function = substr($inm_tmp[0],1);
 					$inm_tmp = explode('{',$inm_tmp[1]);
-					$params['_inner'] = $this->cleanquote($innermatches[2][$i],$tag);
+					$params['_inner'] = $this->cleanquote($inm_tmp[0]);
 					$HTMLIN = str_ireplace($innermatches[0][$i],$this->build($tag,$call_function,$params),$HTMLIN);
 				}
 			}
